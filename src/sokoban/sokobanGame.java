@@ -23,8 +23,9 @@ public class sokobanGame {
 			 int moving=makingMove(move);
 			 int positionOfU=positionOfU(move, board);
 			 int positionOfB=positionOfB(move, board);
+			
 			 System.out.println(positionOfU);System.out.println(moving);System.out.println(positionOfB);
-			 
+	
 			 if(isValidMove(board, move)) {
 					printBoard(board);
 					 }else  {
@@ -34,7 +35,7 @@ public class sokobanGame {
 			
 				
 			}	
-			}
+			}System.out.println("Game Overd");
 	}
 	public static void printBoard(String[] board) {
 
@@ -79,11 +80,14 @@ public class sokobanGame {
 	public static boolean isValidMove(String[] board,  String move) {
 	
 		for (int i = 0; i < board.length; i++) {
-			if (move.equals("a") ) {
+			if (move.equals("a")&&!board[5].equals("U") &&!board[10].equals("U") 
+				&&!board[15].equals("U")&&!board[20].equals("U")){
 				return true;
 			} else if (move.equals("s") ) {
 				return true;
-			} else if (move.equals("d") ) {
+				
+			} else if (move.equals("d") &&!board[4].equals("U") &&!board[9].equals("U") 
+					&&!board[14].equals("U")&&!board[19].equals("U")) {
 				return true;
 			} else if (move.equals("w") ) {
 				return true;
@@ -154,8 +158,8 @@ public class sokobanGame {
 			}
 		}return positionOfB=100;
 }
-	public static int nextPosition(String[] board, String move, int positionOfU, int moving) {
-		int nextPosition = positionOfU+moving;
-		return nextPosition;
-	}
+//	public static int nextPosition(String[] board, String move, int positionOfU, int moving) {
+//		int nextPosition = positionOfU+moving;
+//		return nextPosition;
+//	}
 }
