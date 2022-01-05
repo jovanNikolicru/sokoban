@@ -75,15 +75,15 @@ public class sokobanGame {
 	}
 	
 	public static boolean isValidMove(String[] board,  String move) {
-		int moving=makingMove(move);
+	
 		for (int i = 0; i < board.length; i++) {
-			if (move.equals("a") && i-moving >= 0 && i+moving < board.length) {
+			if (move.equals("a") ) {
 				return true;
-			} else if (move.equals("s") && i-moving >= 0 && i+moving < board.length) {
+			} else if (move.equals("s") ) {
 				return true;
-			} else if (move.equals("d") && i-moving>= 0 && i+moving < board.length) {
+			} else if (move.equals("d") ) {
 				return true;
-			} else if (move.equals("w") && i-moving >= 0 && i+moving < board.length) {
+			} else if (move.equals("w") ) {
 				return true;
 			}
 
@@ -120,7 +120,7 @@ public class sokobanGame {
 				positionOfU=i;
 				
 				positionOfU=positionOfU+moving;
-				if (positionOfU>=0&&positionOfU<25) {
+				if (positionOfU>=0&&positionOfU<25&& !board[positionOfU].equals("X")) {
 				board[positionOfU]="U";
 				board[i]=" ";
 				return positionOfU;
