@@ -23,9 +23,9 @@ public class sokobanGame {
 			 int moving=makingMove(move);
 			 int positionOfU=positionOfU(move, board);
 			 System.out.println(positionOfU);System.out.println(moving);
-			 if(isInField(moving, positionOfU, move)) {
+			 if(isValidMove(board, move)) {
 					printBoard(board);
-					 }else {
+					 }else  {
 						 System.out.println("Invalid move");
 						 printBoard(board);
 					 }
@@ -65,10 +65,10 @@ public class sokobanGame {
 
 			
 	public static boolean isInField( int moving, int positionOfU,String move) {
-		if (move.equals("a")||move.equals("w")) {
-			return positionOfU+moving>=0;
-		}else if(move.equals("d")||move.equals("s")) {
-			return positionOfU+moving<25;
+		if (positionOfU+moving>=0&&move.equals("a")||move.equals("w")) {
+			return true;
+		}else if(positionOfU+moving<25&& move.equals("d")||move.equals("s")) {
+			return true;
 		}else {
 			return false;
 		}
@@ -120,10 +120,14 @@ public class sokobanGame {
 				positionOfU=i;
 				
 				positionOfU=positionOfU+moving;
+				if (positionOfU>=0&&positionOfU<25) {
 				board[positionOfU]="U";
 				board[i]=" ";
 				return positionOfU;
-				
+				}else {
+					positionOfU=positionOfU-moving;
+					return positionOfU;
+				}
 			}
 		}return positionOfU=100;
 	}
