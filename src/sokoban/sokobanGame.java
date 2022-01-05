@@ -22,7 +22,9 @@ public class sokobanGame {
 			 move = s.next();
 			 int moving=makingMove(move);
 			 int positionOfU=positionOfU(move, board);
-			 System.out.println(positionOfU);System.out.println(moving);
+			 int positionOfB=positionOfB(move, board);
+			 System.out.println(positionOfU);System.out.println(moving);System.out.println(positionOfB);
+			 
 			 if(isValidMove(board, move)) {
 					printBoard(board);
 					 }else  {
@@ -130,6 +132,30 @@ public class sokobanGame {
 				}
 			}
 		}return positionOfU=100;
+		
+	}
+	public static int positionOfB(String move, String [] board) {
+		int positionOfB;
+		
+		int moving = makingMove(move);
+		for (int i=0;i<board.length;i++) {
+			if (board[i].equals("B")&&isValidMove(board, move)) {
+				positionOfB=i+moving;
+				
+				
+				if (positionOfB>=0&&positionOfB<25&& !board[positionOfB].equals("X")) {
+				board[positionOfB]="B";
+				board[i]=" ";
+				return positionOfB;
+				}else {
+					positionOfB=positionOfB-moving;
+					return positionOfB;
+				}
+			}
+		}return positionOfB=100;
+}
+	public static int nextPosition(String[] board, String move, int positionOfU, int moving) {
+		int nextPosition = positionOfU+moving;
+		return nextPosition;
 	}
 }
-
