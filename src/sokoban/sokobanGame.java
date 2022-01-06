@@ -18,6 +18,7 @@ public class sokobanGame {
 		 printBoard(board);
 		while (!isGameOver(board) || isWinner(board)) {
 			for (int i = 0; i < board.length; i++) {
+				System.out.println("**********************");
 			System.out.println("Make a move");
 			 move = s.next();
 			 int moving=makingMove(move);
@@ -25,7 +26,7 @@ public class sokobanGame {
 			 int positionOfB=positionOfB(move, board);
 			
 			 System.out.println(positionOfU);System.out.println(moving);System.out.println(positionOfB);
-	
+	System.out.println("**********************");
 			 if(isValidMove(board, move)) {
 					printBoard(board);
 					 }else  {
@@ -35,7 +36,7 @@ public class sokobanGame {
 			
 				
 			}	
-			}System.out.println("Game Overd");
+			}System.out.println("Game Over");
 	}
 	public static void printBoard(String[] board) {
 
@@ -50,7 +51,7 @@ public class sokobanGame {
 
 	public static boolean isGameOver(String[] board) {
 		for (int i = 0; i < board.length; i++) {
-			if (board[4].equals("B") && board[20].equals("B") && board[0].equals("B")) {
+			if (board[4].equals("B") || board[20].equals("B") || board[0].equals("B")) {
 				return true;
 			}
 		}
@@ -81,13 +82,17 @@ public class sokobanGame {
 	
 		for (int i = 0; i < board.length; i++) {
 			if (move.equals("a")&&!board[5].equals("U") &&!board[10].equals("U") 
-				&&!board[15].equals("U")&&!board[20].equals("U")){
+				&&!board[15].equals("U")&&!board[20].equals("U")&&
+				!board[5].equals("B") &&!board[10].equals("B") 
+				&&!board[15].equals("B")&&!board[20].equals("B")){
 				return true;
 			} else if (move.equals("s") ) {
 				return true;
 				
 			} else if (move.equals("d") &&!board[4].equals("U") &&!board[9].equals("U") 
-					&&!board[14].equals("U")&&!board[19].equals("U")) {
+					&&!board[14].equals("U")&&!board[19].equals("U")
+					&&!board[4].equals("B") &&!board[9].equals("B") 
+					&&!board[14].equals("B")&&!board[19].equals("B")) {
 				return true;
 			} else if (move.equals("w") ) {
 				return true;
@@ -126,7 +131,7 @@ public class sokobanGame {
 				positionOfU=i;
 				
 				positionOfU=positionOfU+moving;
-				if (positionOfU>=0&&positionOfU<25&& !board[positionOfU].equals("X")) {
+				if (positionOfU>=0&&positionOfU<25&& !board[positionOfU].equals("X")&&!board[positionOfU].equals("B")) {
 				board[positionOfU]="U";
 				board[i]=" ";
 				return positionOfU;
@@ -143,23 +148,33 @@ public class sokobanGame {
 		
 		int moving = makingMove(move);
 		for (int i=0;i<board.length;i++) {
-			if (board[i].equals("B")&&isValidMove(board, move)) {
-				positionOfB=i+moving;
-				
-				
-				if (positionOfB>=0&&positionOfB<25&& !board[positionOfB].equals("X")) {
+			
+			if (board[i].equals("B")&&move.equals("a")&&board[i+1].equals("U")) {
+				positionOfB=i-1;
 				board[positionOfB]="B";
-				board[i]=" ";
-				return positionOfB;
-				}else {
-					positionOfB=positionOfB-moving;
-					return positionOfB;
-				}
-			}
+				board[i]="U";
+				board[i+1]=" ";
+				return positionOfB;}
+				else if (board[i].equals("B")&&move.equals("s")&&board[i-5].equals("U")) {
+					positionOfB=i+5;
+					board[positionOfB]="B";
+					board[i]="U";
+					board[i-5]=" ";
+					return positionOfB;}
+				else if (board[i].equals("B")&&move.equals("d")&&board[i-1].equals("U")) {
+					positionOfB=i+1;
+					board[positionOfB]="B";
+					board[i]="U";
+					board[i-1]=" ";
+					return positionOfB;}
+				else if (board[i].equals("B")&&move.equals("w")&&board[i+5].equals("U")) {
+					positionOfB=i-5;
+					board[positionOfB]="B";
+					board[i]="U";
+					board[i+5]=" ";
+					return positionOfB;}
+			
 		}return positionOfB=100;
 }
-//	public static int nextPosition(String[] board, String move, int positionOfU, int moving) {
-//		int nextPosition = positionOfU+moving;
-//		return nextPosition;
-//	}
+
 }
