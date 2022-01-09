@@ -80,35 +80,19 @@ public class sokobanGame {
 	}
 
 			
-	public static boolean isInField( int moving, int positionOfU,String move, int positionOfB) {
-		if (positionOfU+moving>=0&&move.equals("a")||move.equals("w")&&positionOfB+moving>=0&&move.equals("a")||move.equals("w")) {
-			return true;
-		}else if(positionOfU+moving<25&& move.equals("d")||move.equals("s")&&positionOfB+moving>=0&&move.equals("a")||move.equals("w")) {
-			return true;
-		}else {
-			return false;
-		}
-	}
+	
 	
 	public static boolean isValidMove(String[] board,  String move) {
 	
 		for (int i = 0; i < board.length; i++) {
 			if (move.equals("a")&&!board[5].equals("U") &&!board[10].equals("U") 
-				&&!board[15].equals("U")&&!board[20].equals("U")
-				&&
-				!board[5].equals("B") &&!board[10].equals("B") 
-			&&!board[15].equals("B")&&!board[20].equals("B")){
+				&&!board[15].equals("U")&&!board[20].equals("U")){
 				return true;
 			} else if (move.equals("s") ) {
 				return true;
 				
 			} else if (move.equals("d") &&!board[4].equals("U") &&!board[9].equals("U") 
 					&&!board[14].equals("U")&&!board[19].equals("U")) {
-				return true;
-			}else if (move.equals("d") &&board[9].equals("B") 
-					&&board[14].equals("B")&&board[19].equals("B")&& board[8].equals("U")&& board[1].equals("U")&& board[8].equals("U")) 
-					
-			{
 				return true;
 			} else if (move.equals("w") ) {
 				return true;
@@ -165,64 +149,37 @@ public class sokobanGame {
 		int moving = makingMove(move);
 		for (int i=0;i<board.length;i++) {
 			
-			if (board[i].equals("B")&&move.equals("a")&&board[i+1].equals("U")&&isValidMove(board, move)) {
-				positionOfB=i-1;
-				if(positionOfB>=0&&positionOfB<25&& !board[positionOfB].equals("X")) {
+			if (board[i].equals("B")&&board[i-moving].equals("U")&&!isBValid(board, move)) {
+				positionOfB=i+moving;
+				if(positionOfB>=0&&positionOfB<25&& !board[positionOfB].equals("X")
+						&&!board[positionOfB].equals("U")) {
 				board[positionOfB]="B";
-				board[i]="U";
-				board[i+1]=" ";}
+				board[positionOfB-moving]="U";
+				board[positionOfB-moving-moving]=" ";
+				return positionOfB;}
+		
 				
-				return positionOfB;
 				
+			
 				}
-				else if (board[i].equals("B")&&move.equals("s")&&board[i-5].equals("U")&&isValidMove(board, move)) {
-					positionOfB=i+5;
-					if (positionOfB>=0&&positionOfB<25&& !board[positionOfB].equals("X")) {
-					board[positionOfB]="B";
-					board[i]="U";
-					board[i-5]=" ";}
-					return positionOfB;}
-				else if (board[i].equals("B")&&move.equals("d")&&board[i-1].equals("U")&&isValidMove(board, move)) {
-					positionOfB=i+1;
-				if(isBValid(board, move, positionOfB)) {
-						positionOfB=positionOfB-1;
-						int positionOfU=positionOfU(move, board);
-						board[positionOfB-1]="B";
-						board[positionOfB-1]="U";
-				//		board[positionOfU]=" ";
-						return positionOfB;
-					}else {
-					positionOfB=i+1;}
-					if (positionOfB>=0&&positionOfB<25&& !board[positionOfB].equals("X")&&isValidMove(board, move)) {
-					board[positionOfB]="B";
-					board[i]="U";
-					board[i-1]=" ";}
-					return positionOfB;}
-				else if (board[i].equals("B")&&move.equals("w")&&board[i+5].equals("U")) {
-					positionOfB=i-5;
-					if (positionOfB>=0&&positionOfB<25&& !board[positionOfB].equals("X")) {
-					board[positionOfB]="B";
-					board[i]="U";
-					board[i+5]=" ";}
-					return positionOfB;}
-			
-		}return positionOfB=100;
-}
-	public static boolean isBValid(String[]board, String move, int positionOfB) {
+			}return positionOfB=100;
+			}	
+	public static boolean isBValid(String[]board, String move) {
+	
+if(move.equals("a")||move.equals("s")||move.equals("w")) {
+		return false;
 		
-		
-		if (move.equals("d")&&board[9].equals("B")) { 
-			positionOfB=9;
-			return true;
-				
-		}else if (move.equals("d")&&board[14].equals("B")) {
-			positionOfB=14;
-			return true;
-	}else if (move.equals("d")&&board[19].equals("B")) {
-		positionOfB=19;
-		return true;
 			
+		}else if (move.equals("d")) {
+			if (board[9].equals("B") &&board[8].equals("U")) {
+			return true;
+			}else if (board[14].equals("B")&&board[13].equals("U")) {
+				return true;
+			}else if (board[19].equals("B")&&board[18].equals("U")) {
+				return true;
 		}return false;
+		}
+return true;
 			
 		
 	}
